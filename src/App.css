@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-green-600: #0C7D69; /* Your custom green color */
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +19,7 @@ input, button, textarea, select { font: inherit; }
 body {
   margin: 0;
   min-height: 100dvh;
-  font-family: "Rubik", 'sans-serif';
+  font-family: "Karla", 'sans-serif';
 }
 
 h1, h2, h3, h4, h5, h6 {

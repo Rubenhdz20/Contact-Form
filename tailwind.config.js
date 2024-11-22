@@ -5,24 +5,24 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
-    },
-    colors: {
-      'strong-grey': '#2A4144',
-      'light-grey': '#86A2A5',
-      'white': '#FFFFFF',
-      'strong-green': '#0C7D69',
-      'light-green': '#E0F1E8',
-      'errors': '#D73C3C',
-    },
-    fontFamily: {
-      serif: ["Karla", 'sans-serif'],
-    },
     extend: {
+      screens: {
+        sm: '480px',
+        md: '768px',
+        lg: '976px',
+        xl: '1440px',
+      },
+      colors: {
+        'strong-grey': '#2A4144',
+        'light-grey': '#86A2A5',
+        'white': '#FFFFFF',
+        'strong-green': '#0C7D69',
+        'light-green': '#E0F1E8',
+        'errors': '#D73C3C',
+      },
+      fontFamily: {
+        serif: ["Karla", 'sans-serif'],
+      },
       spacing: {
         '100': '.5rem',
         '150': '.75rem',
