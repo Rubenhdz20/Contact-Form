@@ -26,9 +26,9 @@ function ContactForm () {
                 <h1 className="text-strong-grey text-3xl font-bold">Contact Us</h1>
                 <InputField label="First Name" {...register("firstName", {required: "First Name is required"})} error={errors.firstName}/>
                 <InputField label="Last Name" {...register("firstName", {required: "Last Name is required"})} error={errors.lastName}/>
-                <InputField label="Email Address" type="email"/>
-                <RadioGroup label="Query Type"/>
-                <InputField label="Message"/>
+                <InputField label="Email" type="email"/>
+                <RadioGroup label="Query Type" options={['General Enquiry', 'Support Request']} {...register('queryType', { required: true })}/>
+                <InputField label="Message" textarea {...register('message', { required: 'Message is required' })} error={errors.message}/>
                 <CheckBox label="I consent to being contacted by the team"/>
                 <button type="submit" className="w-9/12 py-4 px-10 bg-strong-green text-white rounded-lg hover:bg-green-900 transition duration-300 ease-in-out">Submit</button>
             </form>
