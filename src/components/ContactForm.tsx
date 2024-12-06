@@ -17,20 +17,50 @@ function ContactForm () {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit: SubmitHandler<FormValues> = (data) => {
-        console.log(data);
+        console.log("Form Data:", data); 
+        console.log("Errors:", errors);
     }
 
     return(
-        <div className="flex justify-center h-screen bg-light-green">
-            <form onSubmit={handleSubmit(onSubmit)} className="w-4/5 h-5/6 flex flex-col justify-around content-center flex-wrap mt-11 bg-white rounded-2xl">
+        <div className="flex justify-center items-center h-screen bg-light-green">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-11/12 max-w-4xl p-8 bg-white rounded-2xl shadow-lg grid grid-cols-1 gap-6">
                 <h1 className="text-strong-grey text-3xl font-bold">Contact Us</h1>
-                <InputField label="First Name" {...register("firstName", {required: "First Name is required"})} error={errors.firstName}/>
-                <InputField label="Last Name" {...register("firstName", {required: "Last Name is required"})} error={errors.lastName}/>
-                <InputField label="Email" type="email"/>
-                <RadioGroup label="Query Type" options={['General Enquiry', 'Support Request']} {...register('queryType', { required: true })}/>
-                <InputField label="Message" textarea {...register('message', { required: 'Message is required' })} error={errors.message}/>
-                <CheckBox label="I consent to being contacted by the team"/>
-                <button type="submit" className="w-9/12 py-4 px-10 bg-strong-green text-white rounded-lg hover:bg-green-900 transition duration-300 ease-in-out">Submit</button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <InputField
+                        label="First Name"
+                        {...register("firstName", { required: "First Name is required" })}
+                        error={errors.firstName}
+                    />
+                    <InputField
+                        label="Last Name"
+                        {...register("lastName", { required: "Last Name is required" })}
+                        error={errors.lastName}
+                    />
+                </div>
+                <InputField 
+                    label="Email" 
+                    type="email" 
+                    {...register("email", {required: "Email is required"})} 
+                    error={errors.email}
+                />
+                <RadioGroup 
+                    label="Query Type" 
+                    options={['General Enquiry', 'Support Request']} 
+                    {...register('queryType', { required: "Please select a query type" })}
+                    error={errors.queryType}
+                />
+                <InputField 
+                    label="Message" 
+                    textarea 
+                    {...register('message', { required: 'Message is required' })} 
+                    error={errors.message}
+                />
+                <CheckBox 
+                    label="I consent to being contacted by the team *"
+                    {...register("consent", { required: "To submit this form, please consent to being contacted" })}
+                    error={errors.consent}
+                />
+                <button  type="submit" className="py-4 px-10 bg-strong-green text-white rounded-lg hover:bg-green-900 transition duration-300 ease-in-out">Submit</button>
             </form>
         </div>
     )

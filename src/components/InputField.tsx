@@ -4,29 +4,45 @@ import { FieldError } from 'react-hook-form';
 type InputFieldProps = React.InputHTMLAttributes<HTMLInputElement> &
 React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
     label: string;
+    type?: string;
     textarea?: boolean; // Flag to indicate whether this is a textarea
     error?: FieldError;
 };
 
-function InputField({ label, type = "text", textarea, error, ...rest}: InputFieldProps) {
-    return(
+const InputField = React.forwardRef<
+    HTMLInputElement | HTMLTextAreaElement,
+    InputFieldProps
+>(({ label, type = "text", textarea, error, ...rest }, ref) => {
+    return (
         <div>
-            <label className="block text-base text-strong-grey font-medium">{label}</label>
+            <label className="block text-sm font-medium text-strong-grey mb-1">
+                {label}
+            </label>
             {textarea ? (
-                <textarea 
-                    className="border border-light-grey rounded w-full p-2 hover:outline-strong-green" {...rest}/>
+                <textarea
+                    ref={ref as React.Ref<HTMLTextAreaElement>} // Forward ref for textarea
+                    className={`border w-full p-2 rounded ${
+                        error ? "border-red-500" : "border-light-grey"
+                    }`}
+                    {...rest}
+                />
             ) : (
                 <input
+                    ref={ref as React.Ref<HTMLInputElement>} // Forward ref for input
                     type={type}
-                    className={`border rounded w-full p-2 
-                        ${error ? "border-red-500 focus:outline-red-500" : "border-light-grey hover:outline-strong-green"}`
-                    }           
+                    className={`border w-full p-2 rounded ${
+                        error ? "border-red-500" : "border-light-grey"
+                    }`}
                     {...rest}
                 />
             )}
-            {error && <p className="text-red-500 text-sm">{error.message}</p>}
+            {error && (
+                <p className="text-red-500 text-sm mt-1">{error.message}</p>
+            )}
         </div>
-    )
-}
+    );
+});
+
+InputField.displayName = "InputField";
 
 export default InputField;
