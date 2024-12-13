@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import InputField from './InputField';
 import RadioGroup from './RadioGroup';
 import CheckBox from './CheckBox';
+import SuccessToast from "./SuccessToast";
 
 type FormValues = {
     firstName: string;
@@ -13,13 +15,26 @@ type FormValues = {
 }
 
 function ContactForm () {
+    const [isSuccess, setIsSuccess] = useState(false);
+
     // Setting Up React Hook Form
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         console.log("Form Data:", data); 
         console.log("Errors:", errors);
+        setIsSuccess(true);
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            const timer = setTimeout(() => {
+                setIsSuccess(false);
+            }, 3000); // Hide the toast after 3 seconds
+    
+            return () => clearTimeout(timer); // Cleanup the timer on unmount
+        }
+    }, [isSuccess]);
 
     return(
         <div className="flex justify-center items-center h-screen bg-light-green">
@@ -62,6 +77,7 @@ function ContactForm () {
                 />
                 <button  type="submit" className="py-4 px-10 bg-strong-green text-white rounded-lg hover:bg-green-900 transition duration-300 ease-in-out">Submit</button>
             </form>
+            {isSuccess && <SuccessToast onClose={() => setIsSuccess(false)} />}
         </div>
     )
 };
